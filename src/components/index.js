@@ -16,96 +16,47 @@ export const Subtitle = styled.p`
 `
 
 /**
- * State
+ * State - class version
  */
-// export class State extends React.Component {
-//   state = {
-//     count: 0
-//   }
+export class State extends React.Component {
+  state = {
+    count: 0
+  }
 
-//   render() {
-//     return (
-//       <>
-//         <p><Light as="span">stateful value: </Light>
-//           {this.state.count}
-//         </p>
-//         <Button onClick={this.handleClick}>increment</Button>
-//       </>
-//     )
-//   }
+  render() {
+    return (
+      <>
+        <p><Light as="span">stateful value: </Light>
+          {this.state.count}
+        </p>
+        <Button onClick={this.handleClick}>increment</Button>
+      </>
+    )
+  }
 
-//   handleClick = e => {
-//     this.setState(prevState => ({
-//       count: prevState.count + 1,
-//     }))
-//   }
-// }
-
-import { useState } from "react";
-
-// custom hook
-const useCounter = (initialValue) => {
-  const [ count, setCount ] = useState(initialValue);
-
-  const handleClick = () => setCount(prevCount => prevCount + 1);
-  const reset = () => setCount(initialValue);
-
-  return [ count, handleClick, reset ];
+  handleClick = e => {
+    this.setState(prevState => ({
+      count: prevState.count + 1,
+    }))
+  }
 }
 
-export const State = () => {
-  const [ count, handleClick, reset ] = useCounter(0);
-
-  return (
-    <>
-      <p><Light as="span">stateful value: </Light>
-        {count}
-      </p>
-      <Button onClick={handleClick}>increment</Button> <br />
-      <Button onClick={reset}>reset</Button>
-    </>
-  )
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // as a convention hooks always start with use
+/**
+ * State - hook version
+ */
 // import { useState } from "react";
 
 // // custom hook
-// const useCounter = initialValue => {
+// const useCounter = (initialValue) => {
 //   const [ count, setCount ] = useState(initialValue);
-//   const handleClick = e => setCount(prevCount => prevCount + 1);
-//   const reset = () => setCount(initialValue)
+
+//   const handleClick = () => setCount(prevCount => prevCount + 1);
+//   const reset = () => setCount(initialValue);
+
 //   return [ count, handleClick, reset ];
 // }
 
-// // decoupled shared logic & state from rendering
-// export function State(props) {
+// export const State = () => {
 //   const [ count, handleClick, reset ] = useCounter(0);
 
 //   return (
@@ -113,58 +64,21 @@ export const State = () => {
 //       <p><Light as="span">stateful value: </Light>
 //         {count}
 //       </p>
-//       <Small>
-//         {count}
-//       </Small>
-//       <Button onClick={handleClick}>increment</Button><br />
+//       <Button onClick={handleClick}>increment</Button> <br />
 //       <Button onClick={reset}>reset</Button>
 //     </>
 //   )
 // }
 
 /**
- * Side Effect
+ * Side Effect - class version
  */
-// export class SideEffect extends React.Component {
-//   state = {
-//     data: []
-//   }
+export class SideEffect extends React.Component {
+  state = {
+    data: []
+  }
 
-//   componentDidMount = async () => {
-//     const response = await fetch('https://jsonplaceholder.typicode.com/users')
-
-//     let data = await response.json()
-
-//     data.splice(6)
-
-//     setTimeout(
-//       () => this.setState({
-//         data,
-//       }),
-//       3000,
-//     )
-//   }
-
-//   render() {
-//     return (
-//       <>
-//         {
-//           this.state.data.length
-//           ? this.state.data.map(d => <Small>{d.name}</Small>)
-//           : <Small>fetching...</Small>
-//         }
-//         <Button onClick={() => document.location.reload()}>refresh</Button>
-//       </>
-//     )
-//   }
-// }
-
-import {useEffect} from "react";
-
-export const SideEffect = prop => {
-  const [ data, setData ] = useState([]);
-
-  useEffect(async() => {
+  componentDidMount = async () => {
     const response = await fetch('https://jsonplaceholder.typicode.com/users')
 
     let data = await response.json()
@@ -172,57 +86,35 @@ export const SideEffect = prop => {
     data.splice(6)
 
     setTimeout(
-      () => setData(data),
+      () => this.setState({
+        data,
+      }),
       3000,
     )
+  }
 
-    // dependencies
-  }, [])
-
-  return (
-    <>
-      {
-        data.length
-        ? data.map(d => <Small>{d.name}</Small>)
-        : <Small>fetching...</Small>
-      }
-      <Button onClick={() => document.location.reload()}>refresh</Button>
-    </>
-  )
+  render() {
+    return (
+      <>
+        {
+          this.state.data.length
+          ? this.state.data.map(d => <Small>{d.name}</Small>)
+          : <Small>fetching...</Small>
+        }
+        <Button onClick={() => document.location.reload()}>refresh</Button>
+      </>
+    )
+  }
 }
 
+/**
+ * SideEffect - hook version
+ */
+// import {useEffect} from "react";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// export function SideEffect() {
+// export const SideEffect = prop => {
 //   const [ data, setData ] = useState([]);
 
-//   // every render
 //   useEffect(async() => {
 //     const response = await fetch('https://jsonplaceholder.typicode.com/users')
 
@@ -234,7 +126,9 @@ export const SideEffect = prop => {
 //       () => setData(data),
 //       3000,
 //     )
-//   }, []);
+
+//     // dependencies
+//   }, [])
 
 //   return (
 //     <>
