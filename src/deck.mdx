@@ -1,0 +1,55 @@
+import { Appear } from "mdx-deck";
+import defaultTheme from "@mdx-deck/themes";
+import Provider from "./components/Provider";
+import * as c from "./components";
+
+export const theme = {
+  ...defaultTheme,
+  Provider,
+}
+
+react __hooks__
+<Appear>
+  <p>new API</p>
+  <p>opt-in</p>
+</Appear>
+
+---
+
+why do we use <u>__React.Component__</u>?
+<Appear>
+  <c.Subtitle>state</c.Subtitle>
+  <c.Subtitle>lifecycle</c.Subtitle>
+  <p>we want to use React's <u><strong>features</strong></u></p>
+  <c.Small>stateless functional component or component class</c.Small>
+</Appear>
+
+---
+
+why do we use <u>__React.Component__</u>?
+<c.Subtitle>state</c.Subtitle>
+<c.Subtitle>lifecycle</c.Subtitle>
+<p>we want to use React's <u><strong>features</strong></u></p>
+<c.Small><c.Light as="span">stateless</c.Light> functional component <c.Light as="span">or component class</c.Light></c.Small>
+
+---
+
+<u>state</u>
+
+<c.State />
+
+---
+
+<u>side effects</u>
+
+<c.SideEffect />
+
+---
+
+<u>hooks</u>
+<Appear>
+  `const [ value, setValue ] = useState(0)`
+  `useEffect(() => {
+    // trigger a sideeffect
+  })`
+</Appear>
